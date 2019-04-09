@@ -14,8 +14,8 @@ class SkeletonLayerFactory {
         return SkeletonLayer(withType: type, usingColors: colors, andSkeletonHolder: holder)
     }
     
-    func makeMultilineLayer(withType type: SkeletonType, for index: Int, width: CGFloat, multilineCornerRadius: Int) -> CALayer {
-        let spaceRequiredForEachLine = SkeletonAppearance.default.multilineHeight + SkeletonAppearance.default.multilineSpacing
+    func makeMultilineLayer(withType type: SkeletonType, for index: Int, width: CGFloat, multilineCornerRadius: Int, multilineHeight: CGFloat) -> CALayer {
+        let spaceRequiredForEachLine = multilineHeight + SkeletonAppearance.default.multilineSpacing
         let layer = type.layer
         layer.anchorPoint = .zero
         layer.name = CALayer.skeletonSubLayersName
@@ -81,7 +81,7 @@ struct SkeletonLayer {
     
     func addMultilinesIfNeeded() {
         guard let multiLineView = holder as? ContainsMultilineText else { return }
-        maskLayer.addMultilinesLayers(lines: multiLineView.numLines, type: type, lastLineFillPercent: multiLineView.lastLineFillingPercent, multilineCornerRadius: multiLineView.multilineCornerRadius)
+        maskLayer.addMultilinesLayers(lines: multiLineView.numLines, type: type, lastLineFillPercent: multiLineView.lastLineFillingPercent, multilineCornerRadius: multiLineView.multilineCornerRadius, multilineHeight: multiLineView.multilineHeight)
     }
 }
 
