@@ -37,7 +37,7 @@ extension CALayer {
     }
     
     func addMultilinesLayers(lines: Int, type: SkeletonType, lastLineFillPercent: Int, multilineCornerRadius: Int, multilineHeight: CGFloat) {
-        let numberOfSublayers = calculateNumLines(maxLines: lines)
+        let numberOfSublayers = calculateNumLines(maxLines: lines, multilineHeight: multilineHeight)
         for index in 0..<numberOfSublayers {
             var width = bounds.width
             
@@ -50,8 +50,8 @@ extension CALayer {
         }
     }
     
-    private func calculateNumLines(maxLines: Int) -> Int {
-        let spaceRequitedForEachLine = SkeletonAppearance.default.multilineHeight + SkeletonAppearance.default.multilineSpacing
+    private func calculateNumLines(maxLines: Int, multilineHeight: CGFloat) -> Int {
+        let spaceRequitedForEachLine = multilineHeight + SkeletonAppearance.default.multilineSpacing
         var numberOfSublayers = Int(round(CGFloat(bounds.height)/CGFloat(spaceRequitedForEachLine)))
         if maxLines != 0,  maxLines <= numberOfSublayers { numberOfSublayers = maxLines }
         return numberOfSublayers
